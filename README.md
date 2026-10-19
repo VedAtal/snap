@@ -9,7 +9,7 @@ It runs in the menu bar and uses almost no memory.
 ## Setup
 
 ```sh
-git clone https://github.com/VedAtal/snap.git && snap/setup.sh
+curl -fsSL https://raw.githubusercontent.com/VedAtal/swift-app-kit/main/scripts/install.sh | bash -s snap
 ```
 
 That one command does everything:
@@ -21,10 +21,11 @@ That one command does everything:
    my other menu bar apps.
 3. Creates a local code-signing certificate (first run only, see
    [why](https://github.com/VedAtal/swift-app-kit#how-setupsh-fits-together)).
-4. Builds Snap and installs it to `~/Applications/Snap.app`.
+4. Builds Snap and installs it to `~/Applications/Snap.app`, then deletes the download.
 5. Launches it and sets it to start at login.
 
-From the cloned folder, `setup.sh` also takes:
+To work on Snap, clone the repo (`git clone https://github.com/VedAtal/snap.git`). Its
+`setup.sh` takes:
 
 | Command | Installs |
 |---|---|
@@ -39,7 +40,7 @@ apps' windows without it.
 
 ### Updating
 
-**To the latest on GitHub:** click **Update Snap** in the menu bar menu, or run `./setup.sh`.
+**To the latest on GitHub:** click **Update Snap** in the menu bar menu, or run `./setup.sh` in a clone.
 Both download anything newer, rebuild, and restart Snap. If you're already on the latest
 commit, they say so and change nothing. Your shortcuts and the Accessibility permission stay.
 
