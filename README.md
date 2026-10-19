@@ -9,7 +9,7 @@ It runs in the menu bar and uses almost no memory.
 ## Setup
 
 ```sh
-~/projects/snap/setup.sh
+git clone https://github.com/VedAtal/snap.git && snap/setup.sh
 ```
 
 That one command does everything:
@@ -23,6 +23,8 @@ That one command does everything:
    [why](https://github.com/VedAtal/swift-app-kit#how-setupsh-fits-together)).
 4. Builds Snap and installs it to `~/Applications/Snap.app`.
 5. Launches it and sets it to start at login.
+
+From the cloned folder, `setup.sh` also takes:
 
 | Command | Installs |
 |---|---|
@@ -88,7 +90,7 @@ but only while it's on). Rectangle uses ⌃⌥ by default for the same reason.
 ## Uninstall
 
 ```sh
-~/projects/snap/setup.sh --uninstall
+~/Applications/Snap.app/Contents/Resources/setup.sh --uninstall
 ```
 
 This removes the app, its settings, the login item, the Accessibility entry, and the signing
