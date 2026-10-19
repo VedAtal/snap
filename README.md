@@ -165,3 +165,7 @@ the rest of the workflow.
 
 The project builds with only the Command Line Tools, so the code avoids SwiftUI's `@State` and
 `@StateObject`, whose macro plugin only comes with full Xcode.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
