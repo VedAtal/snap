@@ -3,7 +3,7 @@ import Combine
 import SwiftAppKit
 import SwiftUI
 
-/// Snap's parts on top of SwiftAppKit's standard menu bar app (menu, Settings, updates,
+/// Snap's parts on top of SwiftAppKit's standard menu bar app (panel, menu, Settings, updates,
 /// launch at login).
 @MainActor
 final class AppDelegate: MenuBarAppDelegate {
@@ -22,18 +22,11 @@ final class AppDelegate: MenuBarAppDelegate {
             .store(in: &subscriptions)
     }
 
-    override func addMenuItems(to menu: NSMenu) {
-        for (index, group) in WindowAction.groups.enumerated() {
-            if index > 0 { menu.addItem(.separator()) }
-            for action in group.actions {
-                menu.addItem(action.title, shortcut: prefs.shortcut(for: action)) { [weak self] in
-                    self?.mover.perform(action)
-                }
-            }
-        }
-        menu.addItem(.separator())
-        menu.addItem("Pause Snap") { [weak self] in self?.setPaused(!HotKeyCenter.shared.isPaused) }
-            .state = HotKeyCenter.shared.isPaused ? .on : .off
+    override func makePanelView() -> AnyView? {
+        AnyView(PanelView(prefs: prefs, hotKeys: .shared, setPaused: { [weak self] in self?.setPaused($0) }) { [weak self] action in
+            self?.closePanel()
+            self?.mover.perform(action)
+        })
     }
 
     override func makeSettingsView() -> AnyView {

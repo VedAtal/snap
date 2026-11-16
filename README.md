@@ -40,7 +40,7 @@ apps' windows without it.
 
 ### Updating
 
-**To the latest on GitHub:** click **Update Snap** in the menu bar menu, or run `./setup.sh` in a clone.
+**To the latest on GitHub:** click **Update Snap** in the menu (right-click the grid icon, or **⋯** in the panel), or run `./setup.sh` in a clone.
 Both download anything newer, rebuild, and restart Snap. If you're already on the latest
 commit, they say so and change nothing. Your shortcuts and the Accessibility permission stay.
 
@@ -67,9 +67,10 @@ If an update fails, nothing is replaced, and the full output is in
 Snap acts on the focused window of the app in front. "Quick succession" means within 0.4
 seconds, so you can keep holding ⌃⌥ and tap the two arrows.
 
-While Snap is running, its **grid icon** sits in the menu bar at the top right. Click it to see
-every action with its shortcut (click one to apply it to the window you were just in), plus
-**Pause Snap**, **Launch at Login**, **Settings…**, **Update Snap**, and **Quit Snap**.
+While Snap is running, its **grid icon** sits in the menu bar at the top right. Click it for the
+panel: every action as a tile with its shortcut (click one to apply it to the window you were just
+in), and **Pause Snap**. **⚙** opens Settings; **⋯**, or right-clicking the icon, shows **Launch at
+Login**, **Update Snap**, the version, and **Quit Snap**.
 
 **Pause Snap** turns all the shortcuts off and gives them back to other apps until you
 unpause. The menu bar icon dims while paused.
@@ -100,7 +101,7 @@ certificate.
 ## Troubleshooting
 
 **Nothing happens when I press a shortcut.** Snap probably doesn't have Accessibility access.
-The menu bar menu shows **Grant Accessibility Access…** while it's missing. If System Settings
+The panel shows **Grant Accessibility Access…** while it's missing. If System Settings
 already shows Snap as on, select it, remove it with **−**, then quit Snap from its menu and
 open it again (Spotlight → Snap); macOS will ask again.
 
@@ -116,14 +117,15 @@ whole characters) or have a minimum size. Snap gets as close as the app allows.
 ## How it works
 
 Snap is built on [swift-app-kit](https://github.com/VedAtal/swift-app-kit), which provides the
-parts my menu bar apps share: the install script, the global shortcuts, the menu bar menu's
-standard items, the Settings window layout, launch at login, and updates. This repo holds only
+parts my menu bar apps share: the install script, the global shortcuts, the panel's frame and
+the standard menu, the Settings window layout, launch at login, and updates. This repo holds only
 what's specific to Snap:
 
 ```
 Sources/Snap/
 ├── main.swift            Starts the app through swift-app-kit
-├── AppDelegate.swift     Registers the shortcuts, adds Snap's menu items, Pause
+├── AppDelegate.swift     Registers the shortcuts, carries out the panel's actions, Pause
+├── PanelView.swift       The panel: a tile per action, and Pause
 ├── WindowAction.swift    Every action: its name, default shortcut, and group
 ├── WindowMover.swift     Carries out an action: arrow combos, next display, Restore history
 ├── Layout.swift          The geometry: halves, quarters, resizing, moving, which display
@@ -158,7 +160,7 @@ A few details that aren't obvious:
 swift build               # just compile
 ```
 
-To change the shared parts (menu, Settings layout, shortcuts, install script), edit
+To change the shared parts (panel, menu, Settings layout, shortcuts, install script), edit
 [swift-app-kit](https://github.com/VedAtal/swift-app-kit) and build Snap against your local
 copy with `swift package edit swift-app-kit --path ../swift-app-kit`. The kit's README explains
 the rest of the workflow.

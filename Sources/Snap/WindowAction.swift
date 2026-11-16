@@ -31,6 +31,41 @@ enum WindowAction: String, CaseIterable {
         }
     }
 
+    /// The title without the words its group already says ("Left", not "Left Half"), for the panel.
+    var shortTitle: String {
+        switch self {
+        case .leftHalf, .moveLeft: "Left"
+        case .rightHalf, .moveRight: "Right"
+        case .topHalf: "Top"
+        case .bottomHalf: "Bottom"
+        case .moveUp: "Up"
+        case .moveDown: "Down"
+        default: title
+        }
+    }
+
+    /// A picture of what it does, for the panel.
+    var symbol: String {
+        switch self {
+        case .leftHalf: "rectangle.lefthalf.filled"
+        case .rightHalf: "rectangle.righthalf.filled"
+        case .topHalf: "rectangle.tophalf.filled"
+        case .bottomHalf: "rectangle.bottomhalf.filled"
+        case .topLeft: "rectangle.inset.topleft.filled"
+        case .topRight: "rectangle.inset.topright.filled"
+        case .bottomLeft: "rectangle.inset.bottomleft.filled"
+        case .bottomRight: "rectangle.inset.bottomright.filled"
+        case .maximize: "rectangle.inset.filled"
+        case .restore: "arrow.uturn.backward"
+        case .larger: "arrow.up.left.and.arrow.down.right"
+        case .smaller: "arrow.down.right.and.arrow.up.left"
+        case .moveUp: "arrow.up"
+        case .moveLeft: "arrow.left"
+        case .moveDown: "arrow.down"
+        case .moveRight: "arrow.right"
+        }
+    }
+
     /// ⌃⌥ because almost nothing else uses it. ⌘⌥ would take over tab switching in browsers
     /// and editors, and ⌘⌥D (show/hide the Dock) everywhere. Quarters have no default: press
     /// two arrows in a row instead.
@@ -53,7 +88,7 @@ enum WindowAction: String, CaseIterable {
         }
     }
 
-    /// How the actions are grouped in the menu and in Settings, with a hint for Settings.
+    /// How the actions are grouped in the panel and in Settings, with a hint for Settings.
     static let groups: [(title: String, hint: String, actions: [WindowAction])] = [
         ("Halves", "Press the same arrow again to send the window to the next display that way.",
          [.leftHalf, .rightHalf, .topHalf, .bottomHalf]),
